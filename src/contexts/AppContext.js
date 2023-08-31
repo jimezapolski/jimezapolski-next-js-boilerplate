@@ -1,5 +1,12 @@
-import { createContext, useState, useContext, useEffect } from "react"; // porque es un componente de react normal entonces hay que incorporar cosas
-import axios from "axios";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from 'react';
+import axios from 'axios';
+// porque es un componente de react normal entonces hay que incorporar cosas
 
 const AppContext = createContext(); // creamos appContext = createContext() = es lo que nos deja crear el contexto
 
@@ -10,35 +17,50 @@ export const AppContextProvider = ({ children }) => { // el provider es lo que n
   
   //cuando carga el componente hacemos llamada a la api
   const [shows, setShows] = useState([]);
+  const [show, setShow] = useState({});
   const [loading, setLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
+
+  const getShows = useCallback(async () => {
+    setLoading(true);
+    try {
+      const showsReq = await axios.get(
+        `https://api.tvmaze.com/search/shows?q=batman`
+      );
+      setShows(showsReq.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
-    //Hacemos request a nuestra API
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const showsReq = await axios.get(
-          `https://api.tvmaze.com/search/shows?q=batman`
-        );
-        setShows(showsReq.data);
-        console.log(showsReq.data);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
+    getShows();
+  }, [getShows]);
+
+  const getShow = useCallback(async (id) => {
+    setShowLoading(true);
+    try {
+      const show = await axios.get(`https://api.tvmaze.com/shows/${id}`);
+      console.log(show.data);
+      setShow(show.data);
+      setShowLoading(false);
+    } catch (error) {
+      console.log('ERRORRR NO EXISTE SHOW');
+    }
   }, []);
+
 
   return (
     <AppContext.Provider
       value={
-        {
+        {           //exported functions - son las funciones que van a estar disponibles en toda la aplicacion
+
           shows,
-          loading
-          // showNumber,
-          // nombre
-          //exported functions - son las funciones que van a estar disponibles en toda la aplicacion
+          loading,
+          getShow,
+          show,
+          showLoading,
         }
       }
     >
