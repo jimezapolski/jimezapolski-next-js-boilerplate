@@ -8,6 +8,7 @@ const Hero = () => {
     >
       <div className=" bg-[rgba(0,0,0,.6)] w-full h-full flex justify-center items-center">
         {/* <h1 className=" text-white text-xl md:text-7xl sm:text-7xl">Welcome to the machine</h1> */}
+        <Image src={`/assets/search.png`} width={400} height={400}  alt={`search`} ></Image>
       </div>
     </div>
   );

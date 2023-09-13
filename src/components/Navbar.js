@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
    <div className='flex justify-between items-center px-8 h-14 bg-[#000000] shadow-xl shadow-cyan-500/50 '>
-    <div className='h-auto w-16 sm:w-24 md:w-20'>
+    <div className='h-auto w-20 sm:w-24 md:w-20'>
       <Image src={`/assets/Logo.png`} width={160} height={80}  alt={`logo`} ></Image>
     </div>
     <nav className='hidden sm:block'>
