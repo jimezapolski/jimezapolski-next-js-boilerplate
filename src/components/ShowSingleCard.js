@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-const ShowSingleCard = ({ show }) => {
+const ShowSingleCard = ({ show, width=680, height=1000 }) => {
   return (
     <div>
       <h2>{show.name}</h2>
       {show.image && (
         <Image
           src={show.image?.original}
-          width={680}
-          height={1000}
+          width={width}
+          height={height}
           alt={show.name}
         />
       )}

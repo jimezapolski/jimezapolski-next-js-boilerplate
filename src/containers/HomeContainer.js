@@ -1,12 +1,14 @@
-import Hero from '@/components/Hero';
-import CardsContainer from './CardsContainer';
-import LatestTrending from '@/components/LatestTrending';
+import Hero from "@/components/Hero";
+import CardsContainer from "./CardsContainer";
+import LatestTrending from "@/components/LatestTrending";
+import TopSearches from "@/components/TopSearches";
 
 const HomeContainer = () => {
   return (
-    < >
+    <>
       <Hero />
-   <LatestTrending />
+      <LatestTrending />
+      <TopSearches />
       <CardsContainer />
     </>
   );

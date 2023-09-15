@@ -21,13 +21,14 @@ export const AppContextProvider = ({ children }) => { // el provider es lo que n
   const [loading, setLoading] = useState(true);
   const [showLoading, setShowLoading] = useState(true);
 
-  const getShows = useCallback(async () => {
+  const getShows = useCallback(async (whichPage) => {
     setLoading(true);
     try {
       const showsReq = await axios.get(
-        `https://api.tvmaze.com/search/shows?q=batman`
+        // `https://api.tvmaze.com/search/shows?q=${whichShow}`
+        `https://api.tvmaze.com/shows?page=${whichPage}`
       );
-      setShows(showsReq.data);
+      setShows(showsReq.data.slice(0,40));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -35,9 +36,13 @@ export const AppContextProvider = ({ children }) => { // el provider es lo que n
   }, []);
 
   useEffect(() => {
-    getShows();
+    getShows(1);
+    // const showsBatman =  getShows("batman") 
+    // const showsBarbie = getShows("barbie");
+    // const theShows = [[showsBatman], [showsBarbie]];
+    // setShows(theShows)
   }, [getShows]);
-
+ 
   const getShow = useCallback(async (id) => {
     setShowLoading(true);
     try {
@@ -60,7 +65,7 @@ export const AppContextProvider = ({ children }) => { // el provider es lo que n
           loading,
           getShow,
           show,
-          showLoading,
+          showLoading
         }
       }
     >
