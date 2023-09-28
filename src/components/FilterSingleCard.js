@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-const LatestTrandingSingleCard = ({theShow}) => {
+const FilterSingleCard = ({theShow}) => {
      return (
     <div className='z-40'>
        
@@ -15,4 +15,4 @@ const LatestTrandingSingleCard = ({theShow}) => {
   </div>
 )}
 
-export default LatestTrandingSingleCard
+export default FilterSingleCard
