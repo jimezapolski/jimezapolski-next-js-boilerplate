@@ -19,7 +19,7 @@ const TopSearches = () => {
         Top Searches
       </h1>
 
-       {!topSearch && (
+       {topSearch && (
         <div className="flex flex-row m-4">
         {topSearch.slice(0, 5).map((item, index) => (
           <React.Fragment key={index}>
