@@ -1,29 +1,76 @@
-import React from 'react'
-import { useAppContext } from '@/contexts/AppContext'
-import Image from 'next/image'
-import { RxHamburgerMenu } from 'react-icons/rx';
+import React, { useState } from "react";
+import NextLink from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  const handleLinkClick = () => {
+    closeMenu(); // Cierra el menú al hacer clic en un enlace
+  };
 
   return (
-   <div className='flex justify-between items-center px-8 h-14 bg-[#000000] shadow-xl shadow-cyan-500/50 '>
-    <div className='h-auto w-20 sm:w-24 md:w-20'>
-      <Image src={`/assets/Logo.png`} width={160} height={80}  alt={`logo`} ></Image>
-    </div>
-    <nav className='hidden sm:block'>
-        <ul className='flex justify-end items-center gap-4 text-white opacity-75'>
-          <li>Home</li>
-          <li>TV Shows</li>
-          <li>Trending</li>
-          <li>Categories</li>
-        </ul>
-      </nav>
-      <div className='sm:hidden'>
-        <RxHamburgerMenu size={20} color={`#FFFFFF`} />
+    <nav className="flex justify-between items-center px-8 h-14 bg-[#000000] shadow-xl shadow-cyan-500/50 ">
+     
+      <NextLink href="/" passHref onClick={closeMenu}>
+        <Image
+          src={`/assets/Logo.png`}
+          width={180}
+          height={100}
+          alt="Logo"
+        />
+      </NextLink>
+
+      <div className="lg:hidden">
+        <button onClick={toggleMenu}>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
       </div>
+      <div
+        className={`lg:flex lg:flex-row lg:items-center lg:justify-center flex justify-end gap-4 text-white opacity-75 ${
+          menuOpen ? "flex-col" : "hidden"
+        }`}
+      >
+        <NextLink
+          href="`/`"
+          passHref
+          className="lg:inline-block p-2  text-white hover:bg-[#2FBBAA] rounded"
+          onClick={handleLinkClick}
+        >
+          Shows
+        </NextLink>
+        <NextLink
+          href="/about"
+          passHref
+          className="lg:inline-block p-2  text-white hover:bg-[#2FBBAA] rounded"
+          onClick={handleLinkClick}
+        >
+          About
+        </NextLink>
+      </div>
+    </nav>
+  );
+};
 
-    </div>
-  )
-}
-
-export default Navbar
+export default Navbar;
